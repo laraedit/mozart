@@ -1,2 +1,1 @@
-# mozart
-Composer your Laravel Deployments
+## Mozart
