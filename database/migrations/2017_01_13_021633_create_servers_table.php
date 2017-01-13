@@ -19,6 +19,10 @@ class CreateServersTable extends Migration
             $table->string('ip')->unique();
             $table->integer('identity_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('identity_id')
+                ->references('id')->on('identities')
+                ->onDelete('cascade');
         });
     }
 

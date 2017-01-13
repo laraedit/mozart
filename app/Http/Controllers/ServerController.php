@@ -2,7 +2,11 @@
 
 namespace Mozart\Http\Controllers;
 
+use Mozart\Server;
+use Mozart\Identity;
 use Illuminate\Http\Request;
+use Mozart\Http\Requests\ServerRequest;
+use Mozart\Http\Requests\EditServerRequest;
 
 class ServerController extends Controller
 {
@@ -13,7 +17,8 @@ class ServerController extends Controller
      */
     public function index()
     {
-        return view('server.index');
+        $servers = Server::all();
+        return view('server.index', ['servers' => $servers]);
     }
 
     /**
@@ -23,7 +28,8 @@ class ServerController extends Controller
      */
     public function create()
     {
-        return view('server.create');
+        $identities = Identity::all();
+        return view('server.create', ['identities' => $identities]);
     }
 
     /**
@@ -32,9 +38,17 @@ class ServerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ServerRequest $request)
     {
-        //
+        $server = new Server;
+
+        $server->name           = $request->name;
+        $server->ip             = $request->ip;
+        $server->identity_id    = $request->identity_id;
+
+        $server->save();
+
+        return redirect('/servers');
     }
 
     /**
@@ -56,7 +70,13 @@ class ServerController extends Controller
      */
     public function edit($id)
     {
-        return view('server.edit');
+        $server = Server::findOrFail($id);
+        $identities = Identity::all();
+
+        return view('server.edit', [
+            'server' => $server,
+            'identities' => $identities
+        ]);
     }
 
     /**
@@ -66,9 +86,17 @@ class ServerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditServerRequest $request, $id)
     {
-        //
+        $server = Server::findOrFail($id);
+        
+        $server->name = $request->name;
+        $server->ip   = $request->ip;
+        $server->identity_id = $request->identity_id;
+
+        $server->save();
+
+        return redirect('/servers/'.$id.'/edit');
     }
 
     /**
@@ -79,6 +107,10 @@ class ServerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $server = Server::findOrFail($id);
+
+        $server->delete();
+
+        return redirect('/servers');
     }
 }

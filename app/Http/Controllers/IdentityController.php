@@ -131,7 +131,7 @@ class IdentityController extends Controller
 
         $identity->save();
 
-        return redirect('/identities');
+        return redirect('/identities'.$id.'/edit');
     }
 
     /**

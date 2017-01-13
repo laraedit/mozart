@@ -7,7 +7,24 @@
     <div class="clearfix"></div>
 </div>
 
-<div class="panel-body">
-    
-</div>
+<table class="table">
+	<thead>
+		<td>Server Name</td>
+		<td>IP Address</td>
+		<td>Identity</td>
+		<td></td>
+	</thead>
+    @foreach($servers as $server)
+    	<tr>
+    		<td>{{ $server->name }}</td>
+    		<td>{{ $server->ip }}</td>
+    		<td>{{ $server->identity->name }}</td>
+
+    		<td>
+    			<a href="/servers/{{ $server->id }}/edit" class="btn btn-xs btn-primary"><i class="fa fa-fw fa-edit"></i> Edit</a>
+    		</td>
+    	</tr>
+    @endforeach
+</table>
+
 @endsection
