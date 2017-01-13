@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "laraedit/mozart",
+    "description": "Laravel Deployment Composer",
+    "keywords": ["deploy", "mozart", "laraedit", "laravel"],
     "license": "MIT",
     "type": "project",
     "require": {
